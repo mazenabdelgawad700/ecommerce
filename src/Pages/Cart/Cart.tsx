@@ -1,6 +1,11 @@
 import CartItem from "../../Components/CartItem/CartItem";
+import { useAppSelector } from "../../Hooks/App";
 import "./Cart.css";
 const Cart = () => {
+  const cartProducts = useAppSelector((state) => state.cartProducts.products);
+
+  //localStorage.clear();
+
   return (
     <div className="cart">
       <div className="cart-header">
@@ -8,15 +13,9 @@ const Cart = () => {
         <button>Delete all items</button>
       </div>
 
-      <CartItem />
-      <CartItem />
-      <CartItem />
-      <CartItem />
-      <CartItem />
-      <CartItem />
-      <CartItem />
-      <CartItem />
-      <CartItem />
+      {cartProducts
+        ? cartProducts.map((product) => <CartItem key={+product?.id + 1} />)
+        : null}
 
       <div className="total-price">
         <h3>Total Price: $200</h3>

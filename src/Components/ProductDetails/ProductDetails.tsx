@@ -1,8 +1,18 @@
-import { useAppSelector } from "../../Hooks/App";
+import { useAppDispatch, useAppSelector } from "../../Hooks/App";
+import { addToCart } from "../../State/CartSlice/CartSlice";
 import "./ProductDetails.css";
 const ProductDetails = () => {
   const product = useAppSelector((state) => state.products.product);
-  console.log(product);
+  const cartProducts = useAppSelector((state) => state.cartProducts.products);
+  const dispatch = useAppDispatch();
+
+  const handleAddToCart = () => {
+    if (cartProducts.includes(product)) {
+      // count++
+      return;
+    }
+    dispatch(addToCart(product));
+  };
 
   return (
     <div className="product-details" style={{ paddingTop: "52px" }}>
@@ -24,7 +34,9 @@ const ProductDetails = () => {
         </p>
       </div>
 
-      <button className="product-details-add-to-cart">Add to Cart</button>
+      <button className="product-details-add-to-cart" onClick={handleAddToCart}>
+        Add to Cart
+      </button>
     </div>
   );
 };
