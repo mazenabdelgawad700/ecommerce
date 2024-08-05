@@ -1,0 +1,21 @@
+.filters {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 55px;
+  overflow: scroll;
+  scrollbar-width: none;
+}
+
+.filters .filter {
+  background-color: #1eb4b1;
+  color: #fff;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  font-size: 15px;
+  padding: 8px 15px;
+  border-radius: 5px;
+  width: fit-content;
+}

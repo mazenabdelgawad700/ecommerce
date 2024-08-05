@@ -75,6 +75,12 @@
   margin-left: auto;
 }
 
+@media (max-width: 768px) {
+  .cart .cart-item .cart-item-info-title-and-price .cart-item-info-title {
+    margin: auto;
+  }
+}
+
 .cart .cart-item .cart-item-info-title-and-price .cart-item-info-price {
   margin-bottom: 5px;
 }

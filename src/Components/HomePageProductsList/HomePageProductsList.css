@@ -8,7 +8,16 @@
 }
 
 .products .product img {
-  width: 250px;
+  width: 300px;
   object-fit: contain;
   height: 150px;
+}
+
+@media (max-width: 768px) {
+  .products .product {
+    margin: auto;
+  }
+  .products .product img {
+    width: 150px;
+  }
 }

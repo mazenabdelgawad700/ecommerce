@@ -55,7 +55,10 @@ const listProductsInCartSlice = createSlice({
       );
 
       if (findedProduct && findedProduct.quantity > 1) findedProduct.quantity--;
-      else state.products.splice(state.products.indexOf(action.payload), 1);
+      else
+        state.products = state.products.filter(
+          (product) => action.payload.id !== product.id
+        );
 
       localStorage.setItem(
         "listProductsInCart",

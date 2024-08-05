@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { useAppSelector } from "../../Hooks/App";
 import { FaCartShopping } from "react-icons/fa6";
-
+import Logo from "../../assets/Logo.png";
 import "./Navbar.css";
 const Navbar = () => {
   const cartItems = useAppSelector((state) => state.cartProducts.products);
@@ -13,7 +13,9 @@ const Navbar = () => {
 
   return (
     <nav>
-      <NavLink to=""> Shop.</NavLink>
+      <NavLink to="">
+        <img className="logo" src={Logo} alt="Logo" />
+      </NavLink>
       <NavLink to="/cart" className="nav-cart">
         <FaCartShopping /> <span> {cartItemsCount}</span>
       </NavLink>

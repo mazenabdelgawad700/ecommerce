@@ -1,3 +1,4 @@
+import swal from "sweetalert";
 import { useAppDispatch } from "../../Hooks/App";
 import { addToCart, removeFromCart } from "../../State/CartSlice/CartSlice";
 interface Product {
@@ -10,6 +11,19 @@ interface Product {
 
 const CartItem = ({ product }: { product: Product }) => {
   const dispatch = useAppDispatch();
+
+  const handleRemoveElement = (productToDelete: Product) => {
+    if (productToDelete.quantity === 1) {
+      swal({
+        title: "Are you sure?",
+        icon: "warning",
+        buttons: [true, true],
+        dangerMode: true,
+      }).then((willDelete) => {
+        if (willDelete) dispatch(removeFromCart(productToDelete));
+      });
+    } else dispatch(removeFromCart(productToDelete));
+  };
 
   return (
     <div className="cart-item">
@@ -35,7 +49,7 @@ const CartItem = ({ product }: { product: Product }) => {
             id={`quantity-${product?.id}`}
             min="1"
             max="10"
-            defaultValue={product?.quantity}
+            value={product?.quantity}
             readOnly
           />
           <div className="cart-item-info-quantity-buttons">
@@ -47,7 +61,7 @@ const CartItem = ({ product }: { product: Product }) => {
             </button>
             <button
               className="cart-item-info-quantity-remove-button"
-              onClick={() => dispatch(removeFromCart(product))}
+              onClick={() => handleRemoveElement(product)}
             >
               Remove
             </button>

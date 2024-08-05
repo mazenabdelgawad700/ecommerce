@@ -2,6 +2,7 @@ import { useAppDispatch, useAppSelector } from "../../Hooks/App";
 import { addToCart } from "../../State/CartSlice/CartSlice";
 import { FaStar } from "react-icons/fa6";
 import { ReactNode } from "react";
+import { toast } from "react-toastify";
 import "./ProductDetails.css";
 const ProductDetails = () => {
   const product = useAppSelector((state) => state.products.product);
@@ -41,7 +42,10 @@ const ProductDetails = () => {
 
       <button
         className="product-details-add-to-cart"
-        onClick={() => dispatch(addToCart(product))}
+        onClick={() => {
+          toast.success("Product added to cart");
+          dispatch(addToCart(product));
+        }}
       >
         Add to Cart
       </button>

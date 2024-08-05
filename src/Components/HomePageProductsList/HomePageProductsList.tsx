@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../Hooks/App";
 import {
   setProducts,
@@ -7,16 +7,20 @@ import {
 } from "../../State/ListProductSlice/ListProductSlice";
 import "./HomePageProductsList.css";
 import { NavLink } from "react-router-dom";
+import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 const HomePageProductsList = () => {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const products = useAppSelector((state) => state.products.products);
 
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     const fetchProducts = async () => {
+      setIsLoading(true);
       const response = await fetch("https://fakestoreapi.com/products");
       if (!response.ok) return;
       const products = await response.json();
+      setIsLoading(false);
       dispatch(setProducts(products));
     };
     fetchProducts();
@@ -24,17 +28,21 @@ const HomePageProductsList = () => {
 
   return (
     <div className="products">
-      {products.map((product) => (
-        <div className="product" key={product?.id}>
-          <NavLink to={`/products/:${product?.id}`}>
-            <img
-              src={product?.image}
-              alt={product?.title}
-              onClick={() => dispatch(setSingleProduct(product))}
-            />
-          </NavLink>
-        </div>
-      ))}
+      {!isLoading ? (
+        products.map((product) => (
+          <div className="product" key={product?.id}>
+            <NavLink to={`/products/:${product?.id}`}>
+              <img
+                src={product?.image}
+                alt={product?.title}
+                onClick={() => dispatch(setSingleProduct(product))}
+              />
+            </NavLink>
+          </div>
+        ))
+      ) : (
+        <LoadingSpinner />
+      )}
     </div>
   );
 };
