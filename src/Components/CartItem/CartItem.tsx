@@ -21,10 +21,10 @@ const CartItem = ({ product }: { product: Product }) => {
         <div className="cart-item-info-title-and-price">
           <h3 className="cart-item-info-title">{product?.title || 1}</h3>
           <p className="cart-item-info-price">
-            Price per one: ${product?.price}
+            Price per one: ${product?.price.toFixed(2)}
           </p>
           <p className="cart-item-info-price">
-            Total Price: ${product?.price * product.quantity}
+            Total Price: ${(product?.price * product.quantity).toFixed(2)}
           </p>
         </div>
 

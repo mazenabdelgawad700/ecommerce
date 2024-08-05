@@ -9,9 +9,6 @@ const ProductDetails = () => {
 
   const ratingStars = (): ReactNode => {
     const stars = Math.ceil(product?.rating?.rate);
-    console.log(`number of stars: ${stars}`);
-    console.log(`rate: ${product?.rating?.rate}`);
-
     return (
       <div>
         {[...Array(stars)].map((_, index) => (

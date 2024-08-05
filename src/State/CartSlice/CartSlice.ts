@@ -37,32 +37,30 @@ const listProductsInCartSlice = createSlice({
         (product) => action.payload.id === product.id
       );
 
-      if (findedProduct) {
-        findedProduct.quantity++;
-        localStorage.setItem(
-          "listProductsInCart",
-          JSON.stringify(state.products)
-        );
-      } else {
+      if (findedProduct) findedProduct.quantity++;
+      else {
         const productClone = { ...action.payload, quantity: 1 };
         state.products.push(productClone);
-        localStorage.setItem(
-          "listProductsInCart",
-          JSON.stringify(state.products)
-        );
       }
+
+      localStorage.setItem(
+        "listProductsInCart",
+        JSON.stringify(state.products)
+      );
     },
+
     removeFromCart: (state, action) => {
       const findedProduct = state.products.find(
         (product) => action.payload.id === product.id
       );
 
-      if (findedProduct && findedProduct.quantity > 1) {
-        findedProduct.quantity--;
-        return;
-      }
+      if (findedProduct && findedProduct.quantity > 1) findedProduct.quantity--;
+      else state.products.splice(state.products.indexOf(action.payload), 1);
 
-      state.products.splice(state.products.indexOf(action.payload), 1);
+      localStorage.setItem(
+        "listProductsInCart",
+        JSON.stringify(state.products)
+      );
     },
     clearCart: (state) => {
       state.products = [];

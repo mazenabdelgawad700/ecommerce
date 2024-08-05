@@ -14,3 +14,10 @@ nav a {
   font-size: 1.2rem;
   color: #222;
 }
+
+nav .nav-cart {
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  gap: 0.5rem;
+}
