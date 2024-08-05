@@ -41,6 +41,17 @@
   font-weight: 700;
 }
 
+.product-details .product-details-rating .product-details-rating-rate {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+.product-details .product-details-rating .product-details-rating-rate .icons {
+  display: flex;
+  gap: 10px;
+  color: #ffc534;
+}
+
 .product-details .product-details-add-to-cart {
   background-color: rgb(13, 182, 182);
   color: #fff;

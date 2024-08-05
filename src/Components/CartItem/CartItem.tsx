@@ -1,25 +1,54 @@
-const CartItem = () => {
+import { useAppDispatch } from "../../Hooks/App";
+import { addToCart, removeFromCart } from "../../State/CartSlice/CartSlice";
+interface Product {
+  id: number;
+  title: string;
+  price: number;
+  image: string;
+  quantity: number;
+}
+
+const CartItem = ({ product }: { product: Product }) => {
+  const dispatch = useAppDispatch();
+
   return (
     <div className="cart-item">
       <div className="image">
-        <img
-          src="https://tse1.mm.bing.net/th?id=OIP.lTmSRLPfVUJxz76w1rT8eQHaEX&pid=Api&P=0&h=220"
-          alt=""
-        />
+        <img src={product?.image} alt={product?.title} />
       </div>
 
       <div className="cart-item-info">
         <div className="cart-item-info-title-and-price">
-          <h3 className="cart-item-info-title">Product Name</h3>
-          <p className="cart-item-info-price">Price: $100</p>
+          <h3 className="cart-item-info-title">{product?.title || 1}</h3>
+          <p className="cart-item-info-price">
+            Price per one: ${product?.price}
+          </p>
+          <p className="cart-item-info-price">
+            Total Price: ${product?.price * product.quantity}
+          </p>
         </div>
 
         <div className="cart-item-info-quantity">
-          <label htmlFor="quantity">Quantity: </label>
-          <input type="number" id="quantity" min="1" defaultValue="1" />
+          <label htmlFor={`quantity-${product?.id}`}>Quantity: </label>
+          <input
+            type="number"
+            id={`quantity-${product?.id}`}
+            min="1"
+            max="10"
+            defaultValue={product?.quantity}
+            readOnly
+          />
           <div className="cart-item-info-quantity-buttons">
-            <button className="cart-item-info-quantity-add-button">Add</button>
-            <button className="cart-item-info-quantity-remove-button">
+            <button
+              className="cart-item-info-quantity-add-button"
+              onClick={() => dispatch(addToCart(product))}
+            >
+              Add
+            </button>
+            <button
+              className="cart-item-info-quantity-remove-button"
+              onClick={() => dispatch(removeFromCart(product))}
+            >
               Remove
             </button>
           </div>

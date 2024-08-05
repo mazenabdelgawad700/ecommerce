@@ -2,9 +2,13 @@ import { NavLink } from "react-router-dom";
 import "./Navbar.css";
 import { useAppSelector } from "../../Hooks/App";
 const Navbar = () => {
-  const cartItemsCount = useAppSelector(
-    (state) => state.cartProducts.products.length
+  const cartItems = useAppSelector((state) => state.cartProducts.products);
+
+  const cartItemsCount = cartItems.reduce(
+    (acc, item) => (acc += item.quantity),
+    0
   );
+
   return (
     <nav>
       <NavLink to=""> Shop.</NavLink>

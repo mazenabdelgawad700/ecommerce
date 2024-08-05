@@ -8,6 +8,7 @@
 }
 
 .products .product img {
-  width: 150px;
+  width: 250px;
+  object-fit: contain;
   height: 150px;
 }

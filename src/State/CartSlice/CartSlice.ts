@@ -13,6 +13,7 @@ interface Product {
   category: string;
   image: string;
   rating: Rating;
+  quantity: number;
 }
 
 interface ListProductsInCart {
@@ -32,15 +33,45 @@ const listProductsInCartSlice = createSlice({
   initialState,
   reducers: {
     addToCart: (state, action) => {
-      state.products.push(action.payload);
-      localStorage.setItem(
-        "listProductsInCart",
-        JSON.stringify(state.products)
+      const findedProduct = state.products.find(
+        (product) => action.payload.id === product.id
       );
+
+      if (findedProduct) {
+        findedProduct.quantity++;
+        localStorage.setItem(
+          "listProductsInCart",
+          JSON.stringify(state.products)
+        );
+      } else {
+        const productClone = { ...action.payload, quantity: 1 };
+        state.products.push(productClone);
+        localStorage.setItem(
+          "listProductsInCart",
+          JSON.stringify(state.products)
+        );
+      }
+    },
+    removeFromCart: (state, action) => {
+      const findedProduct = state.products.find(
+        (product) => action.payload.id === product.id
+      );
+
+      if (findedProduct && findedProduct.quantity > 1) {
+        findedProduct.quantity--;
+        return;
+      }
+
+      state.products.splice(state.products.indexOf(action.payload), 1);
+    },
+    clearCart: (state) => {
+      state.products = [];
+      localStorage.removeItem("listProductsInCart");
     },
   },
 });
 
-export const { addToCart } = listProductsInCartSlice.actions;
+export const { addToCart, removeFromCart, clearCart } =
+  listProductsInCartSlice.actions;
 export default listProductsInCartSlice.reducer;
 export type { ListProductsInCart };
