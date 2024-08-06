@@ -1,8 +1,11 @@
+import { useEffect } from "react";
 import Filters from "../../Components/Filters/Filters";
 import HomePageProductsList from "../../Components/HomePageProductsList/HomePageProductsList";
 import "./Home.css";
 const Home = () => {
-  document.title = "AG Fashion";
+  useEffect(() => {
+    document.title = "AG Fashion";
+  }, []);
   return (
     <>
       <Filters />
