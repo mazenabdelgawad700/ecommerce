@@ -8,6 +8,8 @@ const Cart = () => {
   const cartProducts = useAppSelector((state) => state.cartProducts.products);
   const dispatch = useAppDispatch();
 
+  console.log("test change the repo name");
+
   useEffect(() => {
     document.title += " Shopping Cart";
   }, []);
