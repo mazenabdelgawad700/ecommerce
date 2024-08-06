@@ -8,6 +8,8 @@ const Cart = () => {
   const cartProducts = useAppSelector((state) => state.cartProducts.products);
   const dispatch = useAppDispatch();
 
+  console.log("tests");
+
   useEffect(() => {
     document.title += " Shopping Cart";
   }, []);
