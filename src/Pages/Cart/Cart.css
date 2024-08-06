@@ -1,8 +1,29 @@
 .cart {
   margin-top: 70px;
-  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+@media (max-width: 768px) {
+  .cart {
+    flex-direction: column-reverse;
+  }
+}
+
+.cart .left-side {
+  flex: 1;
+}
+
+.cart .left-side,
+.cart .right-side {
   box-shadow: 0 0 10px #ddd;
+  padding: 20px;
   border-radius: 5px;
+  max-width: 100%;
+  overflow: scroll;
+  scrollbar-width: none;
 }
 
 .cart .cart-header {
@@ -125,4 +146,11 @@
 .cart .total-price {
   margin-top: 10px;
   text-align: right;
+}
+
+.cart .right-side {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
 }

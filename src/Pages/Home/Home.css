@@ -8,6 +8,12 @@
   scrollbar-width: none;
 }
 
+@media (max-width: 768px) {
+  .filters {
+    justify-content: flex-start;
+  }
+}
+
 .filters .filter {
   background-color: #1eb4b1;
   color: #fff;
@@ -18,4 +24,5 @@
   padding: 8px 15px;
   border-radius: 5px;
   width: fit-content;
+  white-space: nowrap;
 }
