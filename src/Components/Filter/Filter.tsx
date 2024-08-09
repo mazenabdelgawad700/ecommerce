@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { useAppDispatch } from "../../Hooks/App";
 import { setProducts } from "../../State/ListProductSlice/ListProductSlice";
 type FiltersType = {
@@ -7,24 +7,35 @@ type FiltersType = {
 
 const Filter = ({ name }: FiltersType) => {
   const [isLoading, setIsloading] = useState<boolean>(false);
+  const [, startTrainsition] = useTransition();
   const dispatch = useAppDispatch();
 
   const fetchProductsByCategory = async () => {
-    setIsloading(true);
-    const response = await fetch(
-      `https://fakestoreapi.com/products/category/${name}`
-    );
-    if (!response.ok) return;
-    setIsloading(false);
-    const products = await response.json();
-    dispatch(setProducts(products));
+    startTrainsition(() => {
+      setIsloading(true);
+      fetch(`https://fakestoreapi.com/products/category/${name}`)
+        .then((response) => {
+          if (!response.ok) return;
+          setIsloading(false);
+          return response.json();
+        })
+        .then((products) => {
+          dispatch(setProducts(products));
+        });
+    });
   };
 
   const fetchProducts = async () => {
-    const response = await fetch(`https://fakestoreapi.com/products`);
-    if (!response.ok) return;
-    const products = await response.json();
-    dispatch(setProducts(products));
+    startTrainsition(() => {
+      fetch("https://fakestoreapi.com/products")
+        .then((response) => {
+          if (!response.ok) return;
+          return response.json();
+        })
+        .then((products) => {
+          dispatch(setProducts(products));
+        });
+    });
   };
 
   return (

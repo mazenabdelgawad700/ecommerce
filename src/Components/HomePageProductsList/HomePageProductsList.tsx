@@ -1,5 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { useAppDispatch, useAppSelector } from "../../Hooks/App";
 import {
   setProducts,
@@ -10,20 +9,27 @@ import { NavLink } from "react-router-dom";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 const HomePageProductsList = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [, startTrainsition] = useTransition();
   const products = useAppSelector((state) => state.products.products);
 
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      setIsLoading(true);
-      const response = await fetch("https://fakestoreapi.com/products");
-      if (!response.ok) return;
-      const products = await response.json();
-      setIsLoading(false);
-      dispatch(setProducts(products));
+    const getData = async () => {
+      startTrainsition(() => {
+        setIsLoading(true);
+        fetch("https://fakestoreapi.com/products")
+          .then((response) => {
+            if (!response.ok) return;
+            return response.json();
+          })
+          .then((products) => {
+            setIsLoading(false);
+            dispatch(setProducts(products));
+          });
+      });
     };
-    fetchProducts();
+    getData();
   }, []);
 
   return (

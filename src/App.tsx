@@ -26,7 +26,7 @@ function App() {
       />
       <main className="App">
         <Routes>
-          <Route index element={<Home />} />
+          <Route path="/ecommerce" element={<Home />} />
           <Route path="/products/:id" element={<ProductDetails />} />
           <Route path="/cart" element={<Cart />} />
         </Routes>
